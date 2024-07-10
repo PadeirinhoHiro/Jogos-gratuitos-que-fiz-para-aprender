@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcltnwgyg6wqs"]
+
+[ext_resource type="Script" path="res://Menu/main_menu.gd" id="1_pqdti"]
+[ext_resource type="Texture2D" uid="uid://2cbpia7ebevc" path="res://Sprites/Menu/Tela inicial.png" id="2_5akc6"]
+[ext_resource type="FontFile" uid="uid://dohbae1fvt8j3" path="res://Fonts/8-bit Arcade In.ttf" id="3_ucr32"]
+[ext_resource type="AudioStream" uid="uid://bvvnxca4u7aj6" path="res://Songs/menu_song.mp3" id="4_dwukt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_q7ek2"]
+font = ExtResource("3_ucr32")
+font_size = 120
+
+[sub_resource type="InputEventKey" id="InputEventKey_1w4ap"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_a0tsm"]
+events = [SubResource("InputEventKey_1w4ap")]
+
+[node name="Main menu" type="CanvasLayer"]
+script = ExtResource("1_pqdti")
+
+[node name="TelaInicial" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_5akc6")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.1
+offset_left = -336.0
+offset_top = 40.0
+offset_right = 332.0
+offset_bottom = 121.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Slime Jumper"
+label_settings = SubResource("LabelSettings_q7ek2")
+metadata/_edit_use_anchors_ = true
+
+[node name="Play_button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -96.0
+offset_right = 5.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_ucr32")
+theme_override_font_sizes/font_size = 30
+shortcut = SubResource("Shortcut_a0tsm")
+text = "Play!"
+flat = true
+
+[node name="Select_button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 32.0
+offset_right = 125.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_ucr32")
+theme_override_font_sizes/font_size = 30
+shortcut = SubResource("Shortcut_a0tsm")
+text = "Select the Level!"
+flat = true
+
+[node name="Exit_button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.5
+offset_top = 214.5
+offset_right = 63.5
+offset_bottom = 245.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_ucr32")
+theme_override_font_sizes/font_size = 25
+text = "Exit the game :("
+flat = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dwukt")
+volume_db = -20.0
+autoplay = true
+
+[connection signal="pressed" from="Play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Select_button" to="." method="_on_select_button_pressed"]
+[connection signal="pressed" from="Exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

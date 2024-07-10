@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://d7dh8l7gn4e3"]
+
+[ext_resource type="Script" path="res://Inimigos/enemy_1.gd" id="1_81reb"]
+[ext_resource type="Texture2D" uid="uid://dfhmkqg7hpxoo" path="res://Sprites/Enemies/Enemy_1.png" id="2_jhbp7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td1wt"]
+size = Vector2(14, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0nuy5"]
+radius = 200.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsem0"]
+size = Vector2(14, 6)
+
+[node name="Enemy_1" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_81reb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jhbp7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_td1wt")
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource("CircleShape2D_0nuy5")
+
+[node name="Death" type="Area2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death"]
+shape = SubResource("RectangleShape2D_bsem0")
+
+[connection signal="body_entered" from="Vision" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]

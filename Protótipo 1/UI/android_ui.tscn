@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf45xuij5vcro"]
+
+[ext_resource type="Texture2D" uid="uid://dsrsd47uig3my" path="res://Sprites/Menu/Movement.png" id="1_l54iw"]
+
+[node name="Android_UI" type="CanvasLayer"]
+
+[node name="Jump" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.505882)
+position = Vector2(1072, 583)
+scale = Vector2(10, 10)
+texture_normal = ExtResource("1_l54iw")
+action = "Pulo"
+visibility_mode = 1
+
+[node name="Left" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.505882)
+position = Vector2(344, 583)
+rotation = 1.5708
+scale = Vector2(10, 10)
+texture_normal = ExtResource("1_l54iw")
+action = "Direita"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.505882)
+position = Vector2(104, 663)
+rotation = -1.5708
+scale = Vector2(10, 10)
+texture_normal = ExtResource("1_l54iw")
+action = "Esquerda"
+visibility_mode = 1

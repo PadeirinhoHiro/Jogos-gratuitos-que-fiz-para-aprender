@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://datxog2roqbcw"]
+
+[ext_resource type="PackedScene" uid="uid://yqylq7figoyt" path="res://Objetos/plataforma.tscn" id="1_fjwot"]
+[ext_resource type="Script" path="res://Levels/level_settings.gd" id="1_nnvwk"]
+[ext_resource type="PackedScene" uid="uid://xibpsj228onl" path="res://Player/Player.tscn" id="1_vov03"]
+[ext_resource type="PackedScene" uid="uid://d7dh8l7gn4e3" path="res://Inimigos/enemy_1.tscn" id="2_dfyhk"]
+[ext_resource type="FontFile" uid="uid://b7pm2wkhdgv8r" path="res://Fonts/PIXELADE.TTF" id="5_gxhrh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37vrt"]
+size = Vector2(2758, 57)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7j4iw"]
+font = ExtResource("5_gxhrh")
+font_size = 50
+
+[node name="Level Settings" type="Node2D"]
+script = ExtResource("1_nnvwk")
+
+[node name="You_Died_Cooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AntiAwkardTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Enemy_1" parent="." instance=ExtResource("2_dfyhk")]
+position = Vector2(1942, 424)
+
+[node name="Plataforma4" parent="." instance=ExtResource("1_fjwot")]
+position = Vector2(1930, 478)
+
+[node name="Plataforma3" parent="." instance=ExtResource("1_fjwot")]
+position = Vector2(1320, 572)
+rotation = -3.14159
+
+[node name="Plataforma" parent="." instance=ExtResource("1_fjwot")]
+position = Vector2(641, 695)
+
+[node name="Player" parent="." instance=ExtResource("1_vov03")]
+unique_name_in_owner = true
+position = Vector2(649, 457)
+
+[node name="Fall_zone" type="Area2D" parent="."]
+position = Vector2(1371, 854)
+
+[node name="Death_Zone_Collision" type="CollisionShape2D" parent="Fall_zone"]
+shape = SubResource("RectangleShape2D_37vrt")
+
+[node name="Start_pos" type="Marker2D" parent="."]
+position = Vector2(291, 642)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Death_Display" type="Label" parent="UI"]
+offset_right = 59.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "Vidas = "
+label_settings = SubResource("LabelSettings_7j4iw")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="You_Died_Cooldown" to="." method="_on_you_died_cooldown_timeout"]
+[connection signal="timeout" from="AntiAwkardTimer" to="." method="_on_anti_awkard_timer_timeout"]
+[connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
+[connection signal="body_entered" from="Fall_zone" to="." method="_on_fall_zone_body_entered"]

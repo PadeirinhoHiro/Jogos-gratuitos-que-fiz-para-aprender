@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://2tuelv07yea7"]
+
+[ext_resource type="Script" path="res://Inimigos/boss.gd" id="1_erkl4"]
+[ext_resource type="Texture2D" uid="uid://1hkhca3bkofc" path="res://Sprites/Enemies/Boss.png" id="1_vy2lh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1eg6"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_todx3"]
+size = Vector2(40, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rugvt"]
+radius = 200.0
+
+[node name="Boss" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_erkl4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n1eg6")
+debug_color = Color(0.973852, 0, 0.431018, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vy2lh")
+
+[node name="Death_Cos" type="Area2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death_Cos"]
+shape = SubResource("RectangleShape2D_todx3")
+
+[node name="Vision_Cos" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision_Cos"]
+shape = SubResource("CircleShape2D_rugvt")
+
+[node name="Bar" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Health_bar" type="ColorRect" parent="Bar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -3.0
+offset_right = 16.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.915981, 0.0721532, 0.101458, 1)
+
+[node name="Hands_Pos" type="Node2D" parent="."]
+
+[node name="Left_Hand" type="Marker2D" parent="Hands_Pos"]
+position = Vector2(-14, 3)
+
+[node name="Right_hand" type="Marker2D" parent="Hands_Pos"]
+position = Vector2(14, 3)
+
+[node name="Knife_CD" type="Timer" parent="."]
+wait_time = 2.5
+
+[connection signal="body_entered" from="Death_Cos" to="." method="_on_death_cos_body_entered"]
+[connection signal="body_entered" from="Vision_Cos" to="." method="_on_vision_cos_body_entered"]
+[connection signal="body_exited" from="Vision_Cos" to="." method="_on_vision_cos_body_exited"]
+[connection signal="timeout" from="Knife_CD" to="." method="_on_knife_cd_timeout"]

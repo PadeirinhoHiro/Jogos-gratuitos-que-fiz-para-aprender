@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://epbexynqcwbl"]
+
+[ext_resource type="FontFile" uid="uid://rbklwkf6bss0" path="res://Sprites em PNG E GIF/Fonts/vinque rg.otf" id="1_o4voa"]
+[ext_resource type="Script" path="res://Cenas/Main/UI/ui.gd" id="1_pihjg"]
+[ext_resource type="PackedScene" uid="uid://dqk034wppcs7q" path="res://Cenas/Main/UI/Aviso_BURRO.tscn" id="2_8v0pr"]
+[ext_resource type="Texture2D" uid="uid://c08s5epyjp4sq" path="res://Sprites em PNG E GIF/UI/CORAÇÂO.png" id="2_eefyg"]
+[ext_resource type="Texture2D" uid="uid://ycj5abdb0vpc" path="res://Sprites em PNG E GIF/Items/pote de fogo.png" id="3_h78mq"]
+[ext_resource type="Texture2D" uid="uid://cgpw7qbtg5qtw" path="res://Sprites em PNG E GIF/UI/RELOGIO.png" id="6_3td14"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ahxj"]
+font = ExtResource("1_o4voa")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_d7hqv"]
+font = ExtResource("1_o4voa")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ll7ao"]
+font = ExtResource("1_o4voa")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_pe1n2"]
+font = ExtResource("1_o4voa")
+font_size = 20
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_pihjg")
+aviso = ExtResource("2_8v0pr")
+
+[node name="Lives" type="Label" parent="."]
+offset_left = 19.0
+offset_right = 59.0
+offset_bottom = 23.0
+text = "0"
+label_settings = SubResource("LabelSettings_1ahxj")
+
+[node name="Heart" type="Sprite2D" parent="Lives"]
+position = Vector2(-10, 14)
+texture = ExtResource("2_eefyg")
+hframes = 3
+
+[node name="Current_Potion" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 21.0
+offset_right = 112.0
+offset_bottom = 44.0
+text = "Placeholder
+"
+label_settings = SubResource("LabelSettings_d7hqv")
+
+[node name="Potions" type="Sprite2D" parent="Current_Potion"]
+position = Vector2(-11, 15)
+texture = ExtResource("3_h78mq")
+
+[node name="Remaing_Effect_Timer" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 46.0
+offset_right = 33.0
+offset_bottom = 71.0
+text = "12
+"
+label_settings = SubResource("LabelSettings_ll7ao")
+
+[node name="Clock" type="Sprite2D" parent="Remaing_Effect_Timer"]
+position = Vector2(-11, 13)
+texture = ExtResource("6_3td14")
+
+[node name="Score" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -59.0
+offset_bottom = 25.0
+grow_horizontal = 0
+text = "Score :  "
+label_settings = SubResource("LabelSettings_pe1n2")

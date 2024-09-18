@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://brujqoubud5su"]
+
+[ext_resource type="Script" path="res://Cenas/Objetos/Angel Sword/Espada do Anjo.gd" id="1_0cdjb"]
+[ext_resource type="Texture2D" uid="uid://dn3a1qbpgv6pk" path="res://Sprites em PNG E GIF/Objetos/Angel_Sword.png" id="1_b7yn5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5itu"]
+radius = 1.5
+height = 18.0
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_0cdjb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b7yn5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2)
+shape = SubResource("CapsuleShape2D_t5itu")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

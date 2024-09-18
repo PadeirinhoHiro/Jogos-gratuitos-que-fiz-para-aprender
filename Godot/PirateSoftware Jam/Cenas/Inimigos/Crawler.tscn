@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://qsh8d251vift"]
+
+[ext_resource type="Script" path="res://Cenas/Inimigos/Crawler.gd" id="1_ptocw"]
+[ext_resource type="Texture2D" uid="uid://lkd33ify5ou0" path="res://Sprites em PNG E GIF/Inimigos/Crawler.png" id="2_auw4x"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_rktlw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_mvgof"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_os7rp"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_bg44n"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_v5j7i"]
+polygon = PackedVector2Array(-13, 0, 13, 0, 13, -5, 12, -5, 12, -8, 11, -8, 11, -9, 10, -9, 10, -10, 9, -10, 9, -11, 8, -11, 8, -12, 7, -12, 7, -13, -10, -13, -10, -12, -11, -12, -11, -10, -12, -10, -12, -4, -13, -4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3qpi"]
+size = Vector2(26, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2qws"]
+radius = 66.0
+
+[sub_resource type="Animation" id="Animation_w3sn1"]
+resource_name = "new_animation"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.6, 0.9),
+"transitions": PackedFloat32Array(3.605, 5.85634, 12.5533, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jsi4k"]
+_data = {
+"Walk": SubResource("Animation_w3sn1")
+}
+
+[node name="Crawler" type="CharacterBody2D" groups=["crawler", "enemy"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ptocw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_auw4x")
+offset = Vector2(0, -8)
+hframes = 4
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+position = Vector2(-1, 0)
+occluder = SubResource("OccluderPolygon2D_v5j7i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -6.5)
+shape = SubResource("RectangleShape2D_n3qpi")
+
+[node name="Crawler_Vision" type="Area2D" parent="." groups=["enemy"]]
+visible = false
+position = Vector2(0, -6)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crawler_Vision"]
+shape = SubResource("CircleShape2D_b2qws")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_rktlw")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("4_mvgof")
+initial_state = NodePath("Wander")
+
+[node name="Chase" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_os7rp")
+
+[node name="To Wander" type="Node" parent="StateChart/Root/Chase"]
+script = ExtResource("6_bg44n")
+to = NodePath("../../Wander")
+event = &"Start_The_Wander"
+delay_in_seconds = "0.7"
+
+[node name="Wander" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_os7rp")
+
+[node name="To Chase" type="Node" parent="StateChart/Root/Wander"]
+script = ExtResource("6_bg44n")
+to = NodePath("../../Chase")
+event = &"Start_The_Chase"
+delay_in_seconds = "0.0"
+
+[node name="To Wandering" type="Node" parent="StateChart/Root/Wander"]
+script = ExtResource("6_bg44n")
+to = NodePath("../../Wandering")
+event = &"Start_Wandering"
+delay_in_seconds = "1.5
+"
+
+[node name="Wandering" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_os7rp")
+
+[node name="To Wander" type="Node" parent="StateChart/Root/Wandering"]
+script = ExtResource("6_bg44n")
+to = NodePath("../../Wander")
+event = &"Start_The_Wander"
+delay_in_seconds = "1.0"
+
+[node name="To Chase" type="Node" parent="StateChart/Root/Wandering"]
+script = ExtResource("6_bg44n")
+to = NodePath("../../Chase")
+event = &"Start_The_Chase"
+delay_in_seconds = "0.0"
+
+[node name="Walk_Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jsi4k")
+}
+
+[node name="Wander_Time" type="Timer" parent="."]
+one_shot = true
+
+[node name="Wandering_Time" type="Timer" parent="."]
+one_shot = true
+
+[node name="Raio_Esquerda" type="RayCast2D" parent="."]
+position = Vector2(-13, 0)
+target_position = Vector2(0, 12)
+
+[node name="Raio_Direita" type="RayCast2D" parent="."]
+position = Vector2(13, 0)
+target_position = Vector2(0, 12)
+
+[connection signal="body_entered" from="Crawler_Vision" to="." method="_on_crawler_vision_body_entered"]
+[connection signal="body_exited" from="Crawler_Vision" to="." method="_on_crawler_vision_body_exited"]
+[connection signal="state_processing" from="StateChart/Root" to="." method="_on_root_state_processing"]
+[connection signal="state_processing" from="StateChart/Root/Chase" to="." method="_on_chase_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Wander" to="." method="_on_wander_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/Wander" to="." method="_on_wander_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Wandering" to="." method="_on_wandering_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/Wandering" to="." method="_on_wandering_state_processing"]
+[connection signal="timeout" from="Wander_Time" to="." method="_on_wander_time_timeout"]
+[connection signal="timeout" from="Wandering_Time" to="." method="_on_wandering_time_timeout"]

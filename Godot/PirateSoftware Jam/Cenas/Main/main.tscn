@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8x3ximwc4liu"]
+
+[ext_resource type="PackedScene" uid="uid://kcjicgonrkhb" path="res://Cenas/Jogador/player.tscn" id="1_3upjy"]
+[ext_resource type="Script" path="res://Cenas/Main/Scripts/Death_Manager.gd" id="1_wa2te"]
+[ext_resource type="Script" path="res://Cenas/Main/Scripts/PotionsManager.gd" id="2_q2t4e"]
+[ext_resource type="Script" path="res://Cenas/Main/Scripts/CEO_OF_POSITIONS.gd" id="3_j5o0l"]
+[ext_resource type="Script" path="res://Cenas/Main/Scripts/Camera2D.gd" id="5_02ufk"]
+[ext_resource type="PackedScene" uid="uid://epbexynqcwbl" path="res://Cenas/Main/UI/ui.tscn" id="6_r002u"]
+
+[node name="Main" type="Node"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -1000.0
+offset_top = -1500.0
+offset_right = 9000.0
+offset_bottom = 1500.0
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="Lives_Manager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_wa2te")
+
+[node name="Potion_and_Effects_Manager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_q2t4e")
+
+[node name="Effect_Timer" type="Timer" parent="Potion_and_Effects_Manager"]
+wait_time = 12.0
+
+[node name="Pos_Manager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_j5o0l")
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Areas" type="Node" parent="."]
+
+[node name="Poison" type="Node" parent="Areas"]
+
+[node name="Fire" type="Node" parent="Areas"]
+
+[node name="Player" parent="." instance=ExtResource("1_3upjy")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.75, 1.75)
+script = ExtResource("5_02ufk")
+
+[node name="Lights" type="Node" parent="."]
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Crawler" type="Node" parent="Enemies"]
+
+[node name="Poison_Snake" type="Node" parent="Enemies"]
+
+[node name="Angel" type="Node" parent="Enemies"]
+
+[node name="Spider" type="Node" parent="Enemies"]
+
+[node name="Boss" type="Node" parent="Enemies"]
+
+[node name="UI" parent="." instance=ExtResource("6_r002u")]
+unique_name_in_owner = true
+
+[node name="Countdown" type="Timer" parent="UI"]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="Potion_and_Effects_Manager/Effect_Timer" to="Potion_and_Effects_Manager" method="_on_effect_timer_timeout"]
+[connection signal="i_am_dead" from="Player" to="Lives_Manager" method="_on_player_i_am_dead"]
+[connection signal="timeout" from="UI/Countdown" to="UI" method="_on_countdown_timeout"]

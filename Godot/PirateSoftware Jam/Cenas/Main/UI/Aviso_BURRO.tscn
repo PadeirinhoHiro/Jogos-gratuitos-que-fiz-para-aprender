@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqk034wppcs7q"]
+
+[ext_resource type="FontFile" uid="uid://rbklwkf6bss0" path="res://Sprites em PNG E GIF/Fonts/vinque rg.otf" id="1_i7h6b"]
+[ext_resource type="Script" path="res://Cenas/Main/UI/Aviso_BURRO.gd" id="2_vf2wv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t48wp"]
+font = ExtResource("1_i7h6b")
+font_size = 23
+
+[node name="Label" type="Label"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -158.5
+offset_top = -11.5
+offset_right = 158.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You Don't Have any quantity of this item!"
+label_settings = SubResource("LabelSettings_t48wp")
+script = ExtResource("2_vf2wv")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 1.75
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

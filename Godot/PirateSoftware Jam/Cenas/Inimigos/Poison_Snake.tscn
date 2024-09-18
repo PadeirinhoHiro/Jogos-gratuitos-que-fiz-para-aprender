@@ -1,0 +1,266 @@
+[gd_scene load_steps=20 format=3 uid="uid://cccua4hkv5u2s"]
+
+[ext_resource type="Texture2D" uid="uid://ccq77o4lmogrg" path="res://Sprites em PNG E GIF/Inimigos/COBRAO.png" id="1_djd88"]
+[ext_resource type="Script" path="res://Cenas/Inimigos/Poison_Snake.gd" id="1_tx1na"]
+[ext_resource type="PackedScene" uid="uid://cqp4ed4x2svh5" path="res://Cenas/Projéteis/snake_poison_projectile.tscn" id="2_4dkhl"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_l7ixq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_k21gm"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_hvvsv"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_vksv8"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_l31jf"]
+polygon = PackedVector2Array(-3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -16, 0, -16, 0, -17, -1, -17, -1, -18, -2, -18, -2, -17, -3, -17, -3, -10, -4, -10, -4, -9, -5, -9, -5, -10, -6, -10, -6, -11, -7, -11, -7, -12, -8, -12, -8, -21, -7, -21, -7, -22, -6, -22, -6, -23, -5, -23, -5, -24, -3, -24, -3, -25, 3, -25, 3, -24, 5, -24, 5, -23, 6, -23, 6, -22, 7, -22, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_l1iqx"]
+polygon = PackedVector2Array(-3, 0, 6, 0, 6, -1, 7, -1, 7, -4, 8, -4, 8, -16, 7, -16, 7, -20, 6, -20, 6, -21, 5, -21, 5, -22, 3, -22, 3, -23, -3, -23, -3, -22, -5, -22, -5, -12, -4, -12, -4, -11, -3, -11, -3, -9, -2, -9, -2, -10, -1, -10, -1, -17, 0, -17, 0, -16, 1, -16, 1, -5, 0, -5, 0, -4, -1, -4, -1, -3, -2, -3, -2, -2, -3, -2)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r5md2"]
+polygon = PackedVector2Array(0, -16, 0, -15, -1, -15, -1, -13, -2, -13, -2, -12, -5, -12, -5, -13, -7, -13, -7, -14, -8, -14, -8, -15, -7, -15, -7, -16, -6, -16, -6, -17, -5, -17, -5, -18, -4, -18, -4, -19, -3, -19, -3, -20, 4, -20, 4, -19, 5, -19, 5, -18, 6, -18, 6, -17, 7, -17, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0, -3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hhhle"]
+polygon = PackedVector2Array(-3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -16, 0, -16, 0, -15, -1, -15, -1, -13, -2, -13, -2, -11, -3, -11, -3, -10, -7, -10, -7, -11, -8, -11, -8, -12, -8, -15, -7, -15, -7, -16, -6, -16, -6, -17, -5, -17, -5, -18, -4, -18, -4, -19, -3, -19, -3, -20, 4, -20, 4, -19, 5, -19, 5, -18, 6, -18, 6, -17, 7, -17, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wpe5n"]
+polygon = PackedVector2Array(-3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -13, 0, -13, 0, -11, -1, -11, -1, -10, -5, -10, -5, -11, -6, -11, -6, -15, -5, -15, -5, -17, -4, -17, -4, -18, -3, -18, -3, -19, 1, -19, 1, -20, 2, -20, 2, -21, 4, -21, 4, -20, 5, -20, 5, -18, 6, -18, 6, -17, 7, -17, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0o4sq"]
+polygon = PackedVector2Array(-3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -16, 0, -16, 0, -15, -1, -15, -1, -13, -2, -13, -2, -11, -7, -11, -7, -12, -8, -12, -8, -15, -7, -15, -7, -16, -6, -16, -6, -17, -5, -17, -5, -18, -4, -18, -4, -19, -3, -19, -3, -20, 4, -20, 4, -19, 5, -19, 5, -18, 6, -18, 6, -17, 7, -17, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lmo8y"]
+polygon = PackedVector2Array(-3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -16, 0, -16, 0, -15, -1, -15, -1, -13, -2, -13, -2, -12, -5, -12, -5, -13, -7, -13, -7, -14, -8, -14, -8, -15, -7, -15, -7, -16, -6, -16, -6, -17, -5, -17, -5, -18, -4, -18, -4, -19, -3, -19, -3, -20, 4, -20, 4, -19, 5, -19, 5, -18, 6, -18, 6, -17, 7, -17, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rrc1a"]
+polygon = PackedVector2Array(-3, 0, -3, -2, -2, -2, -2, -3, -1, -3, -1, -4, 0, -4, 0, -5, 1, -5, 1, -16, 0, -16, 0, -17, -1, -17, -1, -10, -2, -10, -2, -9, -3, -9, -3, -11, -4, -11, -4, -12, -5, -12, -5, -22, -3, -22, -3, -23, 3, -23, 3, -22, 5, -22, 5, -21, 6, -21, 6, -20, 7, -20, 7, -16, 8, -16, 8, -4, 7, -4, 7, -1, 6, -1, 6, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4o32"]
+size = Vector2(20, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4euoy"]
+radius = 150.0
+
+[sub_resource type="Animation" id="Animation_ksi34"]
+resource_name = "new_animation"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 3.4822, 0.353553, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Shadows/Frame_1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Shadows/Frame_2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Shadows/Frame_3:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D/Shadows/Frame_4:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D/Shadows/Frame_5:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.8, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D/Shadows/Frame_6:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D/Shadows/Frame_7:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D/Shadows/Frame_8:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xrkmq"]
+_data = {
+"Attack": SubResource("Animation_ksi34")
+}
+
+[node name="Snake" type="CharacterBody2D" groups=["enemy", "snake"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_tx1na")
+poisonProjectile = ExtResource("2_4dkhl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_djd88")
+hframes = 8
+
+[node name="Shadows" type="Node2D" parent="Sprite2D"]
+position = Vector2(0, 16)
+
+[node name="Frame_1" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+occluder = SubResource("OccluderPolygon2D_l31jf")
+
+[node name="Frame_2" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_l1iqx")
+
+[node name="Frame_3" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_r5md2")
+
+[node name="Frame_4" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_hhhle")
+
+[node name="Frame_5" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_wpe5n")
+
+[node name="Frame_6" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_0o4sq")
+
+[node name="Frame_7" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_lmo8y")
+
+[node name="Frame_8" type="LightOccluder2D" parent="Sprite2D/Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_rrc1a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12.5)
+shape = SubResource("RectangleShape2D_e4o32")
+
+[node name="Snake_Vision" type="Area2D" parent="."]
+position = Vector2(0, -12.5)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake_Vision"]
+shape = SubResource("CircleShape2D_4euoy")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_l7ixq")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_k21gm")
+initial_state = NodePath("Chilling")
+
+[node name="Chilling" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_hvvsv")
+
+[node name="To Attack" type="Node" parent="StateChart/Root/Chilling"]
+script = ExtResource("5_vksv8")
+to = NodePath("../../Attacking")
+event = &"player_entered_snake_vision"
+delay_in_seconds = "0.0"
+
+[node name="Attacking" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_hvvsv")
+
+[node name="To Chill" type="Node" parent="StateChart/Root/Attacking"]
+script = ExtResource("5_vksv8")
+to = NodePath("../../Chilling")
+event = &"player_escaped_snake_vision"
+delay_in_seconds = "1.5
+
+"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_xrkmq")
+}
+
+[node name="Poison_CD" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.5
+one_shot = true
+
+[node name="Snake_Attack" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="Snake_Mouth" type="Marker2D" parent="."]
+position = Vector2(-8, -13.5)
+
+[connection signal="body_entered" from="Snake_Vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Snake_Vision" to="." method="_on_vision_body_exited"]
+[connection signal="state_processing" from="StateChart/Root" to="." method="_on_root_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Chilling" to="." method="_on_chilling_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/Attacking" to="." method="_on_attacking_state_processing"]
+[connection signal="timeout" from="Poison_CD" to="." method="_on_poison_cd_timeout"]
+[connection signal="timeout" from="Snake_Attack" to="." method="_on_snake_attack_timeout"]

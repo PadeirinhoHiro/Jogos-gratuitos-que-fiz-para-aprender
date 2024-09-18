@@ -7,4 +7,3 @@ var level_1_finished = false
 var level_2_finished = false
 var level_3_finished = false
 var android_mode = false
-

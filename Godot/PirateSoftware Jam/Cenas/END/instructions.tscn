@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://411x46pmj1p0"]
+
+[ext_resource type="FontFile" uid="uid://rbklwkf6bss0" path="res://Sprites em PNG E GIF/Fonts/vinque rg.otf" id="1_1rtx5"]
+[ext_resource type="Script" path="res://Cenas/END/instructions.gd" id="1_ahrx0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2mngm"]
+font = ExtResource("1_1rtx5")
+font_size = 20
+
+[node name="Instructions" type="CanvasLayer"]
+script = ExtResource("1_ahrx0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 640.0
+offset_bottom = 320.0
+color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "A - Left movement
+D - Right movement
+Space - Jump (Use two times to double jump)
+Q - Left Potion Cycle
+E - Right Potion Cycle
+R - Use Potion
+Left Click Mouse - Sword Attack
+Additional Features:
+Poison Snake cannot kill you while in poison potion effect"
+label_settings = SubResource("LabelSettings_2mngm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

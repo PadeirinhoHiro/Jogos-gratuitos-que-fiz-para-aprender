@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bg0k6a2ixnxps"]
+
+[ext_resource type="Script" path="res://Cenas/Poções/poison_potion.gd" id="1_psvxo"]
+[ext_resource type="Texture2D" uid="uid://dnbhju0fq6q8p" path="res://Sprites em PNG E GIF/Items/pote de veneno.png" id="1_womnm"]
+[ext_resource type="FontFile" uid="uid://rbklwkf6bss0" path="res://Sprites em PNG E GIF/Fonts/vinque rg.otf" id="3_flfwe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ihdif"]
+height = 24.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_p7np5"]
+font = ExtResource("3_flfwe")
+font_size = 20
+font_color = Color(0.0666667, 0.835294, 0.243137, 1)
+
+[node name="Poison_Potion" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_psvxo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_womnm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ihdif")
+
+[node name="Respawn_Timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
+[node name="Countdown" type="Timer" parent="."]
+
+[node name="Counter" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -12.5
+offset_right = 20.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_p7np5")
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Respawn_Timer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="Countdown" to="." method="_on_countdown_timeout"]

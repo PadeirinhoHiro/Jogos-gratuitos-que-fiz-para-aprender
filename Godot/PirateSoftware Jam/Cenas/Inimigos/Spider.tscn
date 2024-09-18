@@ -1,0 +1,168 @@
+[gd_scene load_steps=15 format=3 uid="uid://byxsskwrgvavp"]
+
+[ext_resource type="Texture2D" uid="uid://dw17vgindvl8n" path="res://Sprites em PNG E GIF/Inimigos/ARANHAO.png" id="1_0l6mu"]
+[ext_resource type="Script" path="res://Cenas/Inimigos/Spider.gd" id="1_vs74n"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_cykn3"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_1233x"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_fshto"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_o1s4n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_48fd3"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7l3fi"]
+radius = 2.0
+height = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cy16g"]
+radius = 100.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jievw"]
+polygon = PackedVector2Array(5, 16, 7, 16, 7, 14, 6, 14, 6, 13, 5, 13, 5, 12, 6, 12, 6, 13, 8, 13, 8, 14, 12, 14, 12, 12, 9, 12, 9, 11, 7, 11, 7, 10, 6, 10, 6, 9, 5, 9, 5, 8, 6, 8, 6, 7, 7, 7, 7, 6, 8, 6, 8, 4, 9, 4, 9, 5, 12, 5, 12, 4, 13, 4, 13, 3, 16, 3, 16, -2, 13, -2, 13, -3, 12, -3, 12, -4, 11, -4, 11, -5, 10, -5, 10, -4, 9, -4, 9, -3, 8, -3, 8, -6, 7, -6, 7, -7, 6, -7, 6, -8, 5, -8, 5, -9, 6, -9, 6, -10, 7, -10, 7, -11, 9, -11, 9, -12, 12, -12, 12, -14, 8, -14, 8, -13, 6, -13, 6, -12, 5, -12, 5, -13, 6, -13, 6, -14, 7, -14, 7, -16, 5, -16, 5, -15, 4, -15, 4, -14, 3, -14, 3, -7, 4, -7, 4, -6, 5, -6, 5, -4, 2, -4, 2, -5, 1, -5, 1, -7, 0, -7, 0, -8, -1, -8, -1, -9, -3, -9, -3, -10, -4, -10, -4, -13, -3, -13, -3, -14, -2, -14, -2, -15, 0, -15, 0, -16, -4, -16, -4, -15, -5, -15, -5, -14, -9, -14, -9, -13, -11, -13, -11, -11, -8, -11, -8, -12, -6, -12, -6, -9, -5, -9, -5, -8, -4, -8, -4, -7, -2, -7, -2, -6, -1, -6, -1, -5, -4, -5, -4, -4, -5, -4, -5, -3, -6, -3, -6, -2, -7, -2, -7, 3, -6, 3, -6, 4, -5, 4, -5, 5, -4, 5, -4, 6, -2, 6, -2, 7, -4, 7, -4, 8, -5, 8, -5, 9, -6, 9, -6, 12, -8, 12, -8, 11, -11, 11, -11, 13, -9, 13, -9, 14, -5, 14, -5, 15, -4, 15, -4, 16, 0, 16, 0, 15, -2, 15, -2, 14, -3, 14, -3, 13, -4, 13, -4, 10, -3, 10, -3, 9, -1, 9, -1, 8, 0, 8, 0, 7, 1, 7, 1, 6, 2, 6, 2, 5, 5, 5, 5, 6, 4, 6, 4, 7, 3, 7, 3, 14, 4, 14, 4, 15, 5, 15)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_j47qq"]
+polygon = PackedVector2Array(16, 0, 16, -2, 13, -2, 13, -3, 12, -3, 12, -4, 11, -4, 11, -5, 10, -5, 10, -4, 9, -4, 9, -3, 8, -3, 8, -7, 7, -7, 7, -8, 6, -8, 6, -9, 7, -9, 7, -10, 8, -10, 8, -11, 10, -11, 10, -12, 13, -12, 13, -14, 9, -14, 9, -13, 7, -13, 7, -12, 6, -12, 6, -13, 7, -13, 7, -14, 8, -14, 8, -16, 6, -16, 6, -15, 5, -15, 5, -14, 4, -14, 4, -7, 5, -7, 5, -4, 2, -4, 2, -5, 1, -5, 1, -7, 0, -7, 0, -8, -1, -8, -1, -9, -3, -9, -3, -10, -4, -10, -4, -13, -3, -13, -3, -14, -2, -14, -2, -15, 0, -15, 0, -16, -4, -16, -4, -15, -5, -15, -5, -14, -9, -14, -9, -13, -11, -13, -11, -11, -8, -11, -8, -12, -6, -12, -6, -9, -5, -9, -5, -8, -4, -8, -4, -7, -2, -7, -2, -6, -1, -6, -1, -5, -4, -5, -4, -4, -5, -4, -5, -3, -6, -3, -6, -2, -7, -2, -7, 3, -6, 3, -6, 4, -5, 4, -5, 5, -4, 5, -4, 6, -1, 6, -1, 7, -3, 7, -3, 8, -4, 8, -4, 9, -5, 9, -5, 12, -7, 12, -7, 11, -10, 11, -10, 13, -8, 13, -8, 14, -4, 14, -4, 15, -3, 15, -3, 16, 1, 16, 1, 15, -1, 15, -1, 14, -2, 14, -2, 13, -3, 13, -3, 10, -2, 10, -2, 9, 0, 9, 0, 8, 1, 8, 1, 7, 2, 7, 2, 5, 5, 5, 5, 6, 4, 6, 4, 7, 3, 7, 3, 14, 4, 14, 4, 15, 5, 15, 5, 16, 7, 16, 7, 14, 6, 14, 6, 13, 5, 13, 5, 12, 6, 12, 6, 13, 8, 13, 8, 14, 12, 14, 12, 12, 9, 12, 9, 11, 7, 11, 7, 10, 6, 10, 6, 9, 5, 9, 5, 8, 6, 8, 6, 7, 7, 7, 7, 6, 8, 6, 8, 4, 9, 4, 9, 5, 12, 5, 12, 4, 13, 4, 13, 3, 16, 3)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fob4p"]
+polygon = PackedVector2Array(16, 1, 16, -2, 13, -2, 13, -3, 12, -3, 12, -4, 11, -4, 11, -5, 10, -5, 10, -4, 9, -4, 9, -3, 8, -3, 8, -6, 7, -6, 7, -7, 6, -7, 6, -8, 5, -8, 5, -9, 6, -9, 6, -10, 7, -10, 7, -11, 9, -11, 9, -12, 12, -12, 12, -14, 8, -14, 8, -13, 6, -13, 6, -12, 5, -12, 5, -13, 6, -13, 6, -14, 7, -14, 7, -16, 5, -16, 5, -15, 4, -15, 4, -14, 3, -14, 3, -7, 4, -7, 4, -6, 5, -6, 5, -4, 2, -4, 2, -5, 0, -5, 0, -7, -1, -7, -1, -8, -2, -8, -2, -9, -4, -9, -4, -10, -5, -10, -5, -13, -4, -13, -4, -14, -3, -14, -3, -15, -1, -15, -1, -16, -5, -16, -5, -15, -6, -15, -6, -14, -10, -14, -10, -13, -12, -13, -12, -11, -9, -11, -9, -12, -7, -12, -7, -9, -6, -9, -6, -8, -5, -8, -5, -7, -3, -7, -3, -6, -2, -6, -2, -5, -4, -5, -4, -4, -5, -4, -5, -3, -6, -3, -6, -2, -7, -2, -7, 3, -6, 3, -6, 4, -5, 4, -5, 5, -4, 5, -4, 6, -2, 6, -2, 7, -4, 7, -4, 8, -5, 8, -5, 9, -6, 9, -6, 12, -8, 12, -8, 11, -11, 11, -11, 13, -9, 13, -9, 14, -5, 14, -5, 15, -4, 15, -4, 16, 0, 16, 0, 15, -2, 15, -2, 14, -3, 14, -3, 13, -4, 13, -4, 10, -3, 10, -3, 9, -1, 9, -1, 8, 0, 8, 0, 7, 1, 7, 1, 6, 2, 6, 2, 5, 5, 5, 5, 6, 3, 6, 3, 7, 2, 7, 2, 14, 3, 14, 3, 15, 4, 15, 4, 16, 6, 16, 6, 14, 5, 14, 5, 13, 4, 13, 4, 12, 5, 12, 5, 13, 7, 13, 7, 14, 11, 14, 11, 12, 8, 12, 8, 11, 6, 11, 6, 10, 5, 10, 5, 9, 4, 9, 4, 8, 5, 8, 5, 7, 6, 7, 6, 6, 8, 6, 8, 4, 9, 4, 9, 5, 12, 5, 12, 4, 13, 4, 13, 3, 16, 3)
+
+[sub_resource type="Animation" id="Animation_kogwv"]
+resource_name = "walking"
+length = 0.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadows/First Frame:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shadows/Second Frame:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shadows/Third Frame:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vnj2e"]
+_data = {
+"walking": SubResource("Animation_kogwv")
+}
+
+[node name="Spider" type="CharacterBody2D" groups=["enemy", "spider"]]
+collision_layer = 4
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_vs74n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_48fd3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("1_0l6mu")
+hframes = 3
+
+[node name="Tooth" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tooth"]
+position = Vector2(15, 0.5)
+shape = SubResource("CapsuleShape2D_7l3fi")
+
+[node name="Vision" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+position = Vector2(11, 0)
+shape = SubResource("CircleShape2D_cy16g")
+
+[node name="Shadows" type="Node2D" parent="."]
+
+[node name="First Frame" type="LightOccluder2D" parent="Shadows"]
+occluder = SubResource("OccluderPolygon2D_jievw")
+
+[node name="Second Frame" type="LightOccluder2D" parent="Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_j47qq")
+
+[node name="Third Frame" type="LightOccluder2D" parent="Shadows"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_fob4p")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_cykn3")
+
+[node name="SpiderChart" type="Node" parent="StateChart"]
+script = ExtResource("4_1233x")
+initial_state = NodePath("Chill")
+
+[node name="Chill" type="Node" parent="StateChart/SpiderChart"]
+script = ExtResource("5_fshto")
+
+[node name="To Chase" type="Node" parent="StateChart/SpiderChart/Chill"]
+script = ExtResource("6_o1s4n")
+to = NodePath("../../Chase")
+event = &"start_chase"
+delay_in_seconds = "0.0"
+
+[node name="Chase" type="Node" parent="StateChart/SpiderChart"]
+script = ExtResource("5_fshto")
+
+[node name="Go Chill" type="Node" parent="StateChart/SpiderChart/Chase"]
+script = ExtResource("6_o1s4n")
+to = NodePath("../../Chill")
+event = &"go_chill"
+delay_in_seconds = "1.5
+"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vnj2e")
+}
+
+[connection signal="body_entered" from="Tooth" to="." method="_on_tooth_body_entered"]
+[connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_vision_body_exited"]
+[connection signal="state_entered" from="StateChart/SpiderChart/Chill" to="." method="_on_chill_state_entered"]
+[connection signal="state_processing" from="StateChart/SpiderChart/Chase" to="." method="_on_chase_state_processing"]

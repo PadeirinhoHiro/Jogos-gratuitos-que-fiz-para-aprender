@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://dm60c3xpn0vue"]
+
+[ext_resource type="Script" path="res://Cenas/Inimigos/boss.gd" id="1_7dj8t"]
+[ext_resource type="Texture2D" uid="uid://dalrbgjabhqx" path="res://Sprites em PNG E GIF/Inimigos/Chefe.png" id="1_oc3wy"]
+[ext_resource type="PackedScene" uid="uid://dw6bt8ijc51vq" path="res://Cenas/Poções/time_potion.tscn" id="2_1uusy"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_vu02u"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_rwck0"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_id1ur"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_tr23o"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f7jd2"]
+radius = 11.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_inqkc"]
+radius = 150.0
+
+[node name="Boss" type="CharacterBody2D" groups=["boss", "enemy"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_7dj8t")
+time_potion_scene = ExtResource("2_1uusy")
+
+[node name="CharacterBody2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("CapsuleShape2D_f7jd2")
+
+[node name="Zone" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone"]
+shape = SubResource("CircleShape2D_inqkc")
+
+[node name="Polygon2D" type="Polygon2D" parent="Zone"]
+texture_repeat = 3
+color = Color(0, 1, 1, 0.211765)
+polygon = PackedVector2Array(145, 39, 130, 75, 106, 106, 75, 130, 39, 145, 0, 150, -39, 145, -75, 130, -106, 106, -130, 75, -145, 39, -150, 0, -145, -39, -130, -75, -107, -106, -75, -130, -39, -145, 0, -150, 39, -145, 75, -130, 106, -106, 130, -75, 145, -39, 150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Zone"]
+position = Vector2(0, 16)
+texture = ExtResource("1_oc3wy")
+offset = Vector2(0, -16)
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_vu02u")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("4_rwck0")
+initial_state = NodePath("Chill")
+
+[node name="Chill" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_id1ur")
+
+[node name="To SlowDown" type="Node" parent="StateChart/Root/Chill"]
+script = ExtResource("6_tr23o")
+to = NodePath("../../Slowdown")
+event = &"slow_player"
+delay_in_seconds = "0.0"
+
+[node name="Slowdown" type="Node" parent="StateChart/Root"]
+script = ExtResource("5_id1ur")
+
+[node name="To Chill" type="Node" parent="StateChart/Root/Slowdown"]
+script = ExtResource("6_tr23o")
+to = NodePath("../../Chill")
+event = &"go_chill"
+delay_in_seconds = "0.0"
+
+[connection signal="body_entered" from="Zone" to="." method="_on_zone_body_entered"]
+[connection signal="body_exited" from="Zone" to="." method="_on_zone_body_exited"]
+[connection signal="state_processing" from="StateChart/Root" to="." method="_on_root_state_processing"]
+[connection signal="state_processing" from="StateChart/Root/Slowdown" to="." method="_on_slowdown_state_processing"]

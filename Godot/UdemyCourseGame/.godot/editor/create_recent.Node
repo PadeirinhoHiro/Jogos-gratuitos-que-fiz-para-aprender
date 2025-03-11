@@ -1,0 +1,14 @@
+AnimationPlayer
+Node2D
+Node
+CollisionShape2D
+CharacterBody2D
+Sprite2D
+GPUParticles2D
+CPUParticles2D
+Timer
+MarginContainer
+Button
+Label
+PanelContainer
+VBoxContainer

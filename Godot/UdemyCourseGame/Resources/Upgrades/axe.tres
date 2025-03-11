@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://b4tu1b8amiw7"]
+
+[ext_resource type="PackedScene" uid="uid://b3klavqrjxjta" path="res://Scenes/Ability/Axe_Ability_Controller/axe_ability_controler.tscn" id="1_ir743"]
+[ext_resource type="Script" path="res://Resources/Upgrades/ability.gd" id="1_x2vai"]
+
+[resource]
+script = ExtResource("1_x2vai")
+ability_controller_scene = ExtResource("1_ir743")
+id = "axe"
+max_quantity = 1
+name = "Axe"
+description = "Ganha um machado
+"

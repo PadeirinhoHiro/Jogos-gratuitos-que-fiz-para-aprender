@@ -1,0 +1,11 @@
+res://Scenes/Main/main.tscn
+res://Resources/tileset.tres
+res://scripts/weighted_table.gd
+res://Scenes/Manager/enemy_spawner.gd
+res://Scenes/Manager/enemy_spawner.tscn
+res://Scenes/Components/death_component.gd
+res://Scenes/Enemies/wizard_enemy.tscn
+res://Scenes/Components/death_component.tscn
+res://Scenes/Enemies/wizard_enemy.gd
+res://Scenes/Components/velocity_component.tscn
+res://Scenes/Components/velocity_component.gd
